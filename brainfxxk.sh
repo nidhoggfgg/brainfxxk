@@ -1,4 +1,4 @@
-#!/bin/bash
+6#!/bin/bash
 # 安全编程，千万不要开……
 #set -o nounset
 #set -o errexit
@@ -65,7 +65,9 @@ goto_left() {
 
 myput() {
     # 打印char类型
-    echo $1 | awk '{printf("%c", $1)}'
+    #echo $1 | awk '{printf("%c", $1)}'
+    c=`printf "%x" $1`
+    printf "\\x$c"
 }
 
 myhelp() {
