@@ -1,5 +1,5 @@
 #!/bin/bash
-# 安全编程
+# 安全编程，千万不要开……
 #set -o nounset
 #set -o errexit
 # 初始化必要的变量
@@ -22,6 +22,7 @@ s____=4
 s_____=5
 s______=6
 s_______=7
+s________=8
 # 去到[处
 goto_right() {
     local count=0
@@ -94,6 +95,7 @@ code=${code//$s____/.}
 code=${code//$s_____/,}
 code=${code//$s______/[}
 code=${code//$s_______/]}
+code=${code//$s________/~}
 # 开始循环
 while [[ $offset -le ${#code} ]]; do
     now_code="${code:$offset:1}"
