@@ -1,4 +1,4 @@
-6#!/bin/bash
+#!/usr/bin/bash
 # 安全编程，千万不要开……
 #set -o nounset
 #set -o errexit
