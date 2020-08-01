@@ -98,9 +98,36 @@ code=${code//$s_____/,}
 code=${code//$s______/[}
 code=${code//$s_______/]}
 code=${code//$s________/~}
+
+j=0
+l=0
+arr_token=()
+left=()
+right=()
+for ((i=0; i < ${#code}; i++))
+do
+  token=${code:$i:1}
+  arr_token[${i}]=$token
+  if [ $token == "[" ]; then
+    left[${j}]=$i
+    #echo ${left[$j]}
+    (( j++ ))
+    (( l++ ))
+    # echo $j $i
+  elif [ $token == "]" ]; then
+    (( l-- ))
+    #echo $l
+    right[${l}]=$i
+  fi
+done
+echo ${right[@]} 
+echo ${left[@]}
+sleep 1000
+emmm=0
 # 开始循环
-while [[ $offset -le ${#code} ]]; do
-    now_code="${code:$offset:1}"
+for ((i=0; i < ${#code}; i++))
+do
+  now_code=${arr_token[${i}]}
     case "$now_code" in
         '+')
             (( stack[$pointer]++ ));;
@@ -133,13 +160,20 @@ while [[ $offset -le ${#code} ]]; do
 
         '[')
             if [[ ${stack[$pointer]} -eq 0 ]]; then
-                goto_right
+                i=${right[${emmm}]}
+                (( i-- ))
             fi
+            (( emmm++ ))
+            #echo $emmm
             ;;
 
         ']')
+            (( emmm-- ))
             if [[ ${stack[$pointer]} -ne 0 ]]; then
-                goto_left
+                i=${left[${emmm}]}
+                (( i-- ))
+                #echo $emmm
+                #sleep 1
             fi
             ;;
         '~')
